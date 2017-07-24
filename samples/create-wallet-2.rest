@@ -1,0 +1,30 @@
+POST
+http://127.0.0.1:8000/api/services/cryptocurrency/v1/wallets/transaction
+@Content-Type: application/json
+
+{
+  "body": {
+    "pub_key": "d1e877472a4585d515b13f52ae7bfded1ccea511816d7772cb17e1ab20830819",
+    "name": "Janie Roe"
+  },
+  "network_id": 0,
+  "protocol_version": 0,
+  "service_id": 1,
+  "message_id": 1,
+  "signature": "05f51eb13cfaaebc97b27e340048f35f40c7bb6e3ae4c47728dee9908a10636add57700dfce1bcd686dc36fae4fa930d1318fb76a0d5c410b998be1949382209"
+}
+
+%%%
+
+# Duration: 35 ms
+# URL: http://127.0.0.1:8000/api/services/cryptocurrency/v1/wallets/transaction
+
+# HTTP/1.1 200 OK
+
+@Content-Length: 83
+@Content-Type: application/json
+@Date: Mon, 24 Jul 2017 21:16:58 GMT
+
+{
+  "tx_hash": "8714e90607afc05f43b82c475c883a484eecf2193df97b243b0d8630812863fd"
+}
