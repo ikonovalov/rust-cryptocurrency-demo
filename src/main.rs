@@ -8,10 +8,9 @@ extern crate router;
 extern crate bodyparser;
 extern crate iron;
 
-use exonum::blockchain::{self, Blockchain, Service, GenesisConfig,
-                         ValidatorKeys, Transaction, ApiContext};
-use exonum::node::{Node, NodeConfig, NodeApiConfig, TransactionSend,
-                   ApiSender, NodeChannel};
+use exonum::blockchain::{self, Blockchain, Service, GenesisConfig, ValidatorKeys, Transaction,
+                         ApiContext};
+use exonum::node::{Node, NodeConfig, NodeApiConfig, TransactionSend, ApiSender, NodeChannel};
 use exonum::messages::{RawTransaction, FromRaw, Message};
 use exonum::storage::{Fork, MemoryDB, MapIndex};
 use exonum::crypto::{PublicKey, Hash};
@@ -42,10 +41,8 @@ fn main() {
 
 
     // Create Keys
-    let (consensus_public_key, consensus_secret_key) =
-        exonum::crypto::gen_keypair();
-    let (service_public_key, service_secret_key) =
-        exonum::crypto::gen_keypair();
+    let (consensus_public_key, consensus_secret_key) = exonum::crypto::gen_keypair();
+    let (service_public_key, service_secret_key) = exonum::crypto::gen_keypair();
 
 
     // Configure Node
@@ -165,9 +162,7 @@ fn main() {
         fn execute(&self, view: &mut Fork) {
             let mut schema = CurrencySchema { view };
             if schema.wallet(self.pub_key()).is_none() {
-                let wallet = Wallet::new(self.pub_key(),
-                                         self.name(),
-                                         INIT_BALANCE);
+                let wallet = Wallet::new(self.pub_key(), self.name(), INIT_BALANCE);
                 println!("Create the wallet: {:?}", wallet);
                 schema.wallets().put(self.pub_key(), wallet)
             }
@@ -176,8 +171,7 @@ fn main() {
 
     impl Transaction for TxTransfer {
         fn verify(&self) -> bool {
-            (*self.from() != *self.to()) &&
-                self.verify_signature(self.from())
+            (*self.from() != *self.to()) && self.verify_signature(self.from())
         }
 
         fn execute(&self, view: &mut Fork) {
@@ -189,9 +183,7 @@ fn main() {
                 if sender.balance() >= amount {
                     sender.decrease(amount);
                     receiver.increase(amount);
-                    println!("Transfer between wallets: {:?} => {:?}",
-                             sender,
-                             receiver);
+                    println!("Transfer between wallets: {:?} => {:?}", sender, receiver);
                     let mut wallets = schema.wallets();
                     wallets.put(self.from(), sender);
                     wallets.put(self.to(), receiver);
@@ -236,13 +228,11 @@ fn main() {
                     Ok(Some(tx)) => {
                         let tx: Box<Transaction> = tx.into();
                         let tx_hash = tx.hash();
-                        self_.channel.send(tx)
-                            .map_err(|e| ApiError::Events(e))?;
+                        self_.channel.send(tx).map_err(|e| ApiError::Events(e))?;
                         let json = TransactionResponse { tx_hash };
                         self_.ok_response(&serde_json::to_value(&json).unwrap())
                     }
-                    Ok(None) => Err(ApiError::IncorrectRequest(
-                        "Empty request body".into()))?,
+                    Ok(None) => Err(ApiError::IncorrectRequest("Empty request body".into()))?,
                     Err(e) => Err(ApiError::IncorrectRequest(Box::new(e)))?,
                 }
             };
@@ -258,30 +248,31 @@ fn main() {
     struct CurrencyService;
 
     impl Service for CurrencyService {
-        fn service_name(&self) -> &'static str { "cryptocurrency" }
+        fn service_name(&self) -> &'static str {
+            "cryptocurrency"
+        }
 
-        fn service_id(&self) -> u16 { SERVICE_ID }
+        fn service_id(&self) -> u16 {
+            SERVICE_ID
+        }
 
-        fn tx_from_raw(&self, raw: RawTransaction)
-                       -> Result<Box<Transaction>, encoding::Error> {
+        fn tx_from_raw(&self, raw: RawTransaction) -> Result<Box<Transaction>, encoding::Error> {
 
             let trans: Box<Transaction> = match raw.message_type() {
                 TX_TRANSFER_ID => Box::new(TxTransfer::from_raw(raw)?),
                 TX_CREATE_WALLET_ID => Box::new(TxCreateWallet::from_raw(raw)?),
                 _ => {
                     return Err(encoding::Error::IncorrectMessageType {
-                        message_type: raw.message_type()
+                        message_type: raw.message_type(),
                     });
-                },
+                }
             };
             Ok(trans)
         }
 
         fn public_api_handler(&self, ctx: &ApiContext) -> Option<Box<Handler>> {
             let mut router = Router::new();
-            let api = CryptocurrencyApi {
-                channel: ctx.node_channel().clone(),
-            };
+            let api = CryptocurrencyApi { channel: ctx.node_channel().clone() };
             api.wire(&mut router);
             Some(Box::new(router))
         }
@@ -290,8 +281,6 @@ fn main() {
 
 
     // Run Service
-    let services: Vec<Box<Service>> = vec![
-        Box::new(CurrencyService),
-    ];
+    let services: Vec<Box<Service>> = vec![Box::new(CurrencyService)];
 
 }
