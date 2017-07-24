@@ -1,6 +1,7 @@
 POST
 http://127.0.0.1:8000/api/services/cryptocurrency/v1/wallets/transaction
 @Content-Type: application/json
+
 {
   "body": {
     "pub_key": "03e657ae71e51be60a45b4bd20bcf79ff52f0c037ae6da0540a0e0066132b472",
@@ -14,3 +15,16 @@ http://127.0.0.1:8000/api/services/cryptocurrency/v1/wallets/transaction
 }
 
 %%%
+
+# Duration: 34 ms
+# URL: http://127.0.0.1:8000/api/services/cryptocurrency/v1/wallets/transaction
+
+# HTTP/1.1 200 OK
+
+@Content-Length: 83
+@Content-Type: application/json
+@Date: Mon, 24 Jul 2017 21:09:30 GMT
+
+{
+  "tx_hash": "44c6c2c58eaab71f8d627d75ca72f244289bc84586a7fb42186a676b2ec4626b"
+}
