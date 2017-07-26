@@ -4,6 +4,7 @@ extern crate serde_json;
 extern crate serde_derive;
 #[macro_use]
 extern crate exonum;
+extern crate exonum_configuration;
 extern crate router;
 extern crate bodyparser;
 extern crate iron;
@@ -16,6 +17,8 @@ use exonum::storage::{Fork, MemoryDB, MapIndex};
 use exonum::crypto::{PublicKey, Hash};
 use exonum::encoding::{self, Field};
 use exonum::api::{Api, ApiError};
+use exonum::helpers::fabric::NodeBuilder;
+use exonum_configuration::ConfigurationService;
 use iron::prelude::*;
 use iron::Handler;
 use router::Router;
@@ -33,6 +36,7 @@ const INIT_BALANCE: u64 = 100;
 
 fn main() {
     exonum::helpers::init_logger().unwrap();
+    exonum::crypto::init();
 
 
     // Declare Persistent Data
@@ -250,9 +254,11 @@ fn main() {
     let genesis = GenesisConfig::new(vec![validator_keys].into_iter());
 
 
-    let api_address = "0.0.0.0:8000".parse().unwrap();
+    let public_api_address = "0.0.0.0:8000".parse().unwrap();
+    let private_api_address = "0.0.0.0:9000".parse().unwrap();
     let api_cfg = NodeApiConfig {
-        public_api_address: Some(api_address),
+        public_api_address: Some(public_api_address),
+        private_api_address: Some(private_api_address),
         ..Default::default()
     };
 
