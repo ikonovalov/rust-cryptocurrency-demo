@@ -37,6 +37,7 @@ const INIT_BALANCE: u64 = 100;
 
 const API_PORT: u16 = 8000;
 const API_PRIVATE_PORT: u16 = 9000;
+const PEER_PORT: u16 = 2000;
 
 
 fn main() {
@@ -51,10 +52,15 @@ fn main() {
         .unwrap_or(API_PRIVATE_PORT.to_string())
         .parse::<u16>()
         .unwrap();
+    let peer_port = env::var("PEER_PORT")
+        .unwrap_or(PEER_PORT.to_string())
+        .parse::<u16>()
+        .unwrap();
 
     println!("Settings:");
     println!("API public port (API_PORT) {}", public_port);
     println!("API private port (API_PR_PORT) {}", private_port);
+    println!("Peer port (PEER_PORT) {}", peer_port);
 
     // Declare Persistent Data
     encoding_struct! {
@@ -283,7 +289,7 @@ fn main() {
         ..Default::default()
     };
 
-    let peer_address = "0.0.0.0:2000".parse().unwrap();
+    let peer_address = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(0, 0, 0, 0)), peer_port);
 
     // Complete node configuration
     let node_cfg = NodeConfig {

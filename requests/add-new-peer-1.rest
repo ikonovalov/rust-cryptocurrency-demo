@@ -1,0 +1,17 @@
+POST
+http://127.0.0.1:9000/api/system/v1/peers
+
+&ip=127.0.0.1:2001
+
+%%%
+
+# Duration: 27 ms
+# URL: http://127.0.0.1:9000/api/system/v1/peers?&ip=127.0.0.1%3A2001
+
+# HTTP/1.1 200 OK
+
+@Content-Length: 4
+@Content-Type: application/json
+@Date: Thu, 27 Jul 2017 20:57:51 GMT
+
+"Ok"
