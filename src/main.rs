@@ -9,6 +9,9 @@ extern crate router;
 extern crate bodyparser;
 extern crate iron;
 
+use std::env;
+use std::net::{IpAddr, Ipv4Addr, SocketAddr};
+
 use exonum::blockchain::{self, Blockchain, Service, GenesisConfig, ValidatorKeys, Transaction,
                          ApiContext};
 use exonum::node::{Node, NodeConfig, NodeApiConfig, TransactionSend, ApiSender, NodeChannel};
@@ -17,7 +20,6 @@ use exonum::storage::{Fork, MemoryDB, MapIndex};
 use exonum::crypto::{PublicKey, Hash};
 use exonum::encoding::{self, Field};
 use exonum::api::{Api, ApiError};
-use exonum::helpers::fabric::NodeBuilder;
 use exonum_configuration::ConfigurationService;
 use iron::prelude::*;
 use iron::Handler;
@@ -33,11 +35,26 @@ const TX_TRANSFER_ID: u16 = 2;
 // Starting balance of a newly created wallet
 const INIT_BALANCE: u64 = 100;
 
+const API_PORT: u16 = 8000;
+const API_PRIVATE_PORT: u16 = 9000;
+
 
 fn main() {
     exonum::helpers::init_logger().unwrap();
     exonum::crypto::init();
 
+    let public_port = env::var("API_PORT")
+        .unwrap_or(API_PORT.to_string())
+        .parse::<u16>()
+        .unwrap();
+    let private_port = env::var("API_PR_PORT")
+        .unwrap_or(API_PRIVATE_PORT.to_string())
+        .parse::<u16>()
+        .unwrap();
+
+    println!("Settings:");
+    println!("API public port (API_PORT) {}", public_port);
+    println!("API private port (API_PR_PORT) {}", private_port);
 
     // Declare Persistent Data
     encoding_struct! {
@@ -237,7 +254,10 @@ fn main() {
 
     // Initialize Blockchain
     let db = MemoryDB::new();
-    let services: Vec<Box<Service>> = vec![Box::new(CurrencyService), Box::new(ConfigurationService::new())];
+    let services: Vec<Box<Service>> = vec![
+        Box::new(CurrencyService),
+        Box::new(ConfigurationService::new()),
+    ];
     let blockchain = Blockchain::new(Box::new(db), services);
 
 
@@ -254,8 +274,9 @@ fn main() {
     let genesis = GenesisConfig::new(vec![validator_keys].into_iter());
 
 
-    let public_api_address = "0.0.0.0:8000".parse().unwrap();
-    let private_api_address = "0.0.0.0:9000".parse().unwrap();
+    let public_api_address = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(0, 0, 0, 0)), public_port);
+    let private_api_address =
+        SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), private_port);
     let api_cfg = NodeApiConfig {
         public_api_address: Some(public_api_address),
         private_api_address: Some(private_api_address),
