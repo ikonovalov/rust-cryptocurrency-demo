@@ -25,7 +25,7 @@ use router::Router;
 
 
 // Service identifier
-const SERVICE_ID: u16 = 1;
+const SERVICE_ID: u16 = 900;
 // Identifier for wallet creating transaction
 const TX_CREATE_WALLET_ID: u16 = 1;
 // Identifier for coins transferring transaction
@@ -237,7 +237,7 @@ fn main() {
 
     // Initialize Blockchain
     let db = MemoryDB::new();
-    let services: Vec<Box<Service>> = vec![Box::new(CurrencyService)];
+    let services: Vec<Box<Service>> = vec![Box::new(CurrencyService), Box::new(ConfigurationService::new())];
     let blockchain = Blockchain::new(Box::new(db), services);
 
 
