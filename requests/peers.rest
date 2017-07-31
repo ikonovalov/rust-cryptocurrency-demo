@@ -1,0 +1,49 @@
+GET
+http://127.0.0.1:8015/api/system/v1/peers
+@Content-Type: application/json
+
+%%%
+
+# Duration: 175 ms
+# URL: http://127.0.0.1:8015/api/system/v1/peers
+
+# HTTP/1.1 200 OK
+
+@Content-Length: 834
+@Content-Type: application/json
+@Date: Mon, 31 Jul 2017 20:13:39 GMT
+
+{
+  "incoming_connections": [
+    "127.0.0.1:50292",
+    "127.0.0.1:50294",
+    "127.0.0.1:50300",
+    "127.0.0.1:50296"
+  ],
+  "outgoing_connections": {
+    "127.0.0.1:5400": {
+      "public_key": "5ef52c426a4c1281ffc5f77d681590370bb87fc5818808ce541a962dcb442822",
+      "state": {
+        "type": "Active"
+      }
+    },
+    "127.0.0.1:5401": {
+      "public_key": "089a59a1fa71721b3dfcbab9d3a0610ca76e3fb3af9e4d1799639aec1fe6c773",
+      "state": {
+        "type": "Active"
+      }
+    },
+    "127.0.0.1:5402": {
+      "public_key": "56abe0d09dd0491d5a1e527402c8b404b8a03aba18ed25e852711c7e52ec4ceb",
+      "state": {
+        "type": "Active"
+      }
+    },
+    "127.0.0.1:5403": {
+      "public_key": "5e7254018258c86d893cf5a1cf1a1656c5c7d6294f998415daecd9b943456a6f",
+      "state": {
+        "type": "Active"
+      }
+    }
+  }
+}

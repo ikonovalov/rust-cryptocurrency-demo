@@ -17,15 +17,16 @@ http://127.0.0.1:8000/api/services/cryptocurrency/v1/wallets/transaction
 }
 %%%
 
-# Duration: 19 ms
+# Duration: 56 ms
 # URL: http://127.0.0.1:8000/api/services/cryptocurrency/v1/wallets/transaction
 
-# HTTP/1.1 200 OK
+# HTTP/1.1 409 Conflict
 
-@Content-Length: 83
-@Content-Type: application/json
-@Date: Mon, 24 Jul 2017 21:21:41 GMT
+@Content-Length: 283
+@Content-Type: text/plain
+@Date: Mon, 31 Jul 2017 12:20:54 GMT
 
 {
-  "tx_hash": "e63b28caa07adffb6e2453390a59509a1469e66698c75b4cfb2f0ae7a6887fdc"
+  "debug": "IncorrectRequest(BodyError { detail: \"Can\\'t parse body to the struct\", cause: JsonError(ErrorImpl { code: Message(\"data did not match any variant of untagged enum TransactionRequest\"), line: 0, column: 0 }) })",
+  "description": "Can't parse body to the struct"
 }

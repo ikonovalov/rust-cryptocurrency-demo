@@ -2,28 +2,16 @@ GET
 http://127.0.0.1:8000/api/system/v1/mempool
 @Content-Type: application/json
 
-{
-  "body": {
-    "pub_key": "03e657ae71e51be60a45b4bd20bcf79ff52f0c037ae6da0540a0e0066132b472",
-    "name": "Johnny Doe"
-  },
-  "network_id": 0,
-  "protocol_version": 0,
-  "service_id": 1,
-  "message_id": 1,
-  "signature": "ad5efdb52e48309df9aa582e67372bb3ae67828c5eaa1a7a5e387597174055d315eaa7879912d0509acf17f06a23b7f13f242017b354f682d85930fa28240402"
-}
-
 %%%
 
-# Duration: 236 ms
+# Duration: 205 ms
 # URL: http://127.0.0.1:8000/api/system/v1/mempool
 
 # HTTP/1.1 200 OK
 
 @Content-Length: 15
 @Content-Type: application/json
-@Date: Thu, 27 Jul 2017 20:50:01 GMT
+@Date: Mon, 31 Jul 2017 12:12:45 GMT
 
 {
   "size": 0
