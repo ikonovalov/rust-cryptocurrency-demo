@@ -1,0 +1,29 @@
+GET
+http://127.0.0.1:8015/api/system/v1/network
+@Content-Type: application/json
+
+%%%
+
+# Duration: 36 ms
+# URL: http://127.0.0.1:8015/api/system/v1/network
+
+# HTTP/1.1 200 OK
+
+@Content-Length: 185
+@Content-Type: application/json
+@Date: Sat, 05 Aug 2017 20:42:14 GMT
+
+{
+  "network_id": 0,
+  "protocol_version": 0,
+  "services": [
+    {
+      "id": 1,
+      "name": "configuration"
+    },
+    {
+      "id": 900,
+      "name": "cryptocurrency"
+    }
+  ]
+}

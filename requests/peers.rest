@@ -4,21 +4,21 @@ http://127.0.0.1:8015/api/system/v1/peers
 
 %%%
 
-# Duration: 175 ms
+# Duration: 237 ms
 # URL: http://127.0.0.1:8015/api/system/v1/peers
 
 # HTTP/1.1 200 OK
 
 @Content-Length: 834
 @Content-Type: application/json
-@Date: Mon, 31 Jul 2017 20:13:39 GMT
+@Date: Sat, 05 Aug 2017 20:42:07 GMT
 
 {
   "incoming_connections": [
-    "127.0.0.1:50292",
-    "127.0.0.1:50294",
-    "127.0.0.1:50300",
-    "127.0.0.1:50296"
+    "127.0.0.1:38404",
+    "127.0.0.1:38406",
+    "127.0.0.1:38402",
+    "127.0.0.1:38400"
   ],
   "outgoing_connections": {
     "127.0.0.1:5400": {

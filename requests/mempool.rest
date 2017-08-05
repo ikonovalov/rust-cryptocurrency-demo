@@ -4,14 +4,14 @@ http://127.0.0.1:8000/api/system/v1/mempool
 
 %%%
 
-# Duration: 205 ms
+# Duration: 35 ms
 # URL: http://127.0.0.1:8000/api/system/v1/mempool
 
 # HTTP/1.1 200 OK
 
 @Content-Length: 15
 @Content-Type: application/json
-@Date: Mon, 31 Jul 2017 12:12:45 GMT
+@Date: Sat, 05 Aug 2017 20:42:23 GMT
 
 {
   "size": 0
