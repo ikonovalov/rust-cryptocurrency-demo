@@ -1,0 +1,72 @@
+version: '2'
+services:
+    exo_validator0:
+      container_name: validator0
+      image: ubuntu:16.04
+      volumes:
+        - "../target/debug:/var/run/exo:ro"
+        - "../testnet:/etc/exo:ro"
+      networks:
+        exn:
+          ipv4_address: 172.16.238.10
+      ports:
+        - 5400:5400
+        - 8000:8000
+        - 8010:8010
+      command: "/var/run/exo/cryptocurrency run --node-config /etc/exo/0.toml --leveldb /tmp/validators/db --public-api-address 127.0.0.1:8000 --private-api-address 127.0.0.1:8010"
+
+    exo_validator1:
+        container_name: validator1
+        image: ubuntu:16.04
+        volumes:
+          - "../target/debug:/var/run/exo:ro"
+          - "../testnet:/etc/exo:ro"
+        networks:
+          exn:
+            ipv4_address: 172.16.238.11
+        ports:
+          - 5401:5401
+          - 8001:8000
+          - 8011:8010
+        command: "/var/run/exo/cryptocurrency run --node-config /etc/exo/1.toml --leveldb /tmp/validators/db --public-api-address 127.0.0.1:8000 --private-api-address 127.0.0.1:8010"
+
+    exo_validator2:
+        container_name: validator2
+        image: ubuntu:16.04
+        volumes:
+          - "../target/debug:/var/run/exo:ro"
+          - "../testnet:/etc/exo:ro"
+        networks:
+          exn:
+            ipv4_address: 172.16.238.12
+        ports:
+          - 5402:5402
+          - 8002:8000
+          - 8012:8010
+        command: "/var/run/exo/cryptocurrency run --node-config /etc/exo/2.toml --leveldb /tmp/validators/db --public-api-address 127.0.0.1:8000 --private-api-address 127.0.0.1:8010"
+
+    exo_validator3:
+        container_name: validator3
+        image: ubuntu:16.04
+        volumes:
+          - "../target/debug:/var/run/exo:ro"
+          - "../testnet:/etc/exo:ro"
+        networks:
+          exn:
+            ipv4_address: 172.16.238.13
+        ports:
+          - 5403:5403
+          - 8003:8000
+          - 8013:8010
+        command: "/var/run/exo/cryptocurrency run --node-config /etc/exo/3.toml --leveldb /tmp/validators/db --public-api-address 127.0.0.1:8000 --private-api-address 127.0.0.1:8010"
+
+networks:
+  exn:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+        gateway: 172.16.238.1
+      - subnet: 2001:3984:3989::/64
+        gateway: 2001:3984:3989::1

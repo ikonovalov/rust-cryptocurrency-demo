@@ -1,8 +1,8 @@
 consensus_public_key = "089a59a1fa71721b3dfcbab9d3a0610ca76e3fb3af9e4d1799639aec1fe6c773"
 consensus_secret_key = "69db73c957a0b343867e3ae20f496de445c453e872d4a50708a432af04856459089a59a1fa71721b3dfcbab9d3a0610ca76e3fb3af9e4d1799639aec1fe6c773"
-external_address = "127.0.0.1:5401"
-listen_address = "127.0.0.1:5401"
-peers = ["127.0.0.1:5400", "127.0.0.1:5401", "127.0.0.1:5402", "127.0.0.1:5403"]
+external_address = "172.16.238.11:5401"
+listen_address = "172.16.238.11:5401"
+peers = ["172.16.238.10:5400", "172.16.238.11:5401", "172.16.238.12:5402", "172.16.238.13:5403"]
 service_public_key = "a4dbf45c4842ae8589a75391c1d059b901038189a7d7d00bfb18ceea6b70ba76"
 service_secret_key = "6d28a62b5f047eec289041157368690d95666f61eafcd5838ddcf1bee327488ba4dbf45c4842ae8589a75391c1d059b901038189a7d7d00bfb18ceea6b70ba76"
 
@@ -28,6 +28,10 @@ propose_timeout = 500
 round_timeout = 3000
 status_timeout = 5000
 txs_block_limit = 1000
+
+[genesis.consensus.timeout_adjuster]
+timeout = 500
+type = "Constant"
 
 [mempool]
 events_pool_capacity = 400000

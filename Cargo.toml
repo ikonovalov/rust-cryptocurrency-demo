@@ -2,6 +2,9 @@
 name = "cryptocurrency"
 version = "0.1.0"
 authors = ["ikonovalov <konovalov84@gmail.com>"]
+keywords = ["distributed", "blockchain", "cryptocurrency", "exonum"]
+license = "Apache-2.0"
+repository = "https://github.com/ikonovalov/rust-cryptocurrency-demo"
 
 
 [dependencies]
